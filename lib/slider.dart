@@ -1,61 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
-import 'package:ovio_adminend/genderselection.dart';
-import 'package:ovio_adminend/customColors.dart';
+import 'package:ovio_user/genderselection.dart';
+import 'package:ovio_user/customColors.dart';
 
 class IntroSlider extends StatelessWidget {
-
-      final pages = [
+  final pages = [
     PageViewModel(
         pageColor: customColor1,
         bubble: Image.asset('lib/images/sampleLogo.png'),
-        body: Text( 'Cut the Chase Go Online',),
-         title: Text(
+        body: Text(
+          'Cut the Chase Go Online',
+        ),
+        title: Text(
           'Heading1',
-          
         ),
         mainImage: Image.asset(
           'lib/images/airplane.png',
           height: 285.0,
           width: 285.0,
           alignment: Alignment.center,
-        )
-          ),
+        )),
     PageViewModel(
-       pageColor: Colors.amberAccent,
-        bubble: Image.asset('lib/images/sampleLogo.png'),
-        body: Text( 'Unique & Success booking system developed to connect salons with you ',),
-         title: Text(
-          'Heading2',
-          
-        ),
-        mainImage: Image.asset(
-          'lib/images/hotel.png',
-          height: 285.0,
-          width: 285.0,
-          alignment: Alignment.center,
-        ),
-     
+      pageColor: Colors.amberAccent,
+      bubble: Image.asset('lib/images/sampleLogo.png'),
+      body: Text(
+        'Unique & Success booking system developed to connect salons with you ',
       ),
-      
-    
+      title: Text(
+        'Heading2',
+      ),
+      mainImage: Image.asset(
+        'lib/images/hotel.png',
+        height: 285.0,
+        width: 285.0,
+        alignment: Alignment.center,
+      ),
+    ),
     PageViewModel(
-
-    pageColor: const Color(0xFF607D8B),
-        bubble: Image.asset('lib/images/sampleLogo.png'),
-        body: Text( 'Caption',),
-         title: Text(
-          'Heading3',
-          
-        ),
-        mainImage: Image.asset(
-          'lib/images/taxi.png',
-          height: 285.0,
-          width: 285.0,
-          alignment: Alignment.center,
-        ),
-
+      pageColor: const Color(0xFF607D8B),
+      bubble: Image.asset('lib/images/sampleLogo.png'),
+      body: Text(
+        'Caption',
+      ),
+      title: Text(
+        'Heading3',
+      ),
+      mainImage: Image.asset(
+        'lib/images/taxi.png',
+        height: 285.0,
+        width: 285.0,
+        alignment: Alignment.center,
+      ),
     ),
   ];
 
@@ -86,4 +82,4 @@ class IntroSlider extends StatelessWidget {
       ), //Builder
     ); //Ma
   }
-} 
+}

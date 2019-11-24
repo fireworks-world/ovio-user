@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import 'homepage.dart';
 import 'main.dart';
+
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
   @override
@@ -49,13 +50,11 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () {
           Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => new ExampleForm())
-          );
+              new MaterialPageRoute(builder: (context) => new ExampleForm()));
         },
         padding: EdgeInsets.all(12),
         color: customTheme.primaryColor,
-        child: Text('Log In',
-            style: customTheme.textTheme.button),
+        child: Text('Log In', style: customTheme.textTheme.button),
       ),
     );
 
