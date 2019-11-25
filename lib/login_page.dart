@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'citySelection.dart';
 import 'homepage.dart';
 import 'main.dart';
 
@@ -50,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () {
           Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => new ExampleForm()));
+              new MaterialPageRoute(builder: (context) => new CitySelection()));
         },
         padding: EdgeInsets.all(12),
         color: customTheme.primaryColor,

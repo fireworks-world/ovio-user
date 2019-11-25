@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating/flutter_rating.dart';
+import 'package:ovio_user/salondetailed.dart';
 
 import 'main.dart';
 
@@ -11,16 +13,18 @@ class object {
   String eta;
   String name;
   double rating;
-  object(this.eta, this.rating, this.name);
+  int price;
+  String info = 'Salon INFO';
+  object(this.eta, this.rating, this.name, this.price);
 }
 
 List<object> liss = [
-  new object("10", 4.5, "Salon1"),
-  new object("12", 4.3, "Salon5"),
-  new object("16", 4.2, "Salon3"),
-  new object("18", 3.9, "Salon6"),
-  new object("10", 4.6, "Salon2"),
-  new object("9", 4.9, "Salon9"),
+  new object("10", 4.1, "Salon1", 500),
+  new object("12", 3.3, "Salon5", 900),
+  new object("16", 4.2, "Salon3", 1500),
+  new object("18", 3.9, "Salon6", 2000),
+  new object("10", 4.6, "Salon2", 3500),
+  new object("9", 4.9, "Salon9", 5000),
 ];
 
 class _BrowserState extends State<Browser> {
@@ -69,7 +73,7 @@ class _BrowserState extends State<Browser> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 78,
+                height: MediaQuery.of(context).size.width / 5,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     physics: BouncingScrollPhysics(),
@@ -80,9 +84,7 @@ class _BrowserState extends State<Browser> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: liss
-                    .map((f) => ListItem(context, f.name, f.eta, f.rating))
-                    .toList(),
+                children: liss.map((f) => ListItem(context, f)).toList(),
               ),
             ],
           ),
@@ -92,16 +94,32 @@ class _BrowserState extends State<Browser> {
   }
 }
 
+class BottomList extends StatefulWidget {
+  @override
+  _BottomListState createState() => _BottomListState();
+}
+
+class _BottomListState extends State<BottomList> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
 class ListItem extends StatelessWidget {
   String name;
   String eta;
   double rating;
+  object obj;
   BuildContext context;
-  ListItem(this.context, this.name, this.eta, this.rating);
+  ListItem(this.context, this.obj);
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.width * .95 * 2 / 3;
     double width = MediaQuery.of(context).size.width * .95;
+    name = obj.name;
+    eta = obj.eta;
+    rating = obj.rating;
     return Container(
       margin: EdgeInsets.all(8.0),
       width: width,
@@ -129,19 +147,30 @@ class ListItem extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        name,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w700),
-                      )
-                    ],
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          name,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w700),
+                        ),
+                        StarRating(
+                          size: 20.0,
+                          rating: rating,
+                          color: Colors.orange,
+                          borderColor: Colors.grey,
+                          starCount: 5,
+                        )
+                      ],
+                    ),
                   ),
                 ),
-                Expanded(flex: 1, child: Text('ETA: ' + eta.toString())),
+                Expanded(
+                    flex: 1,
+                    child: Center(child: Text('ETA: ' + eta.toString()))),
                 Expanded(
                   flex: 1,
                   child: Padding(
@@ -153,7 +182,10 @@ class ListItem extends StatelessWidget {
                         style: TextStyle(color: Colors.yellow),
                       ),
                       onPressed: () {
-                        debugPrint('View Clicked');
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new SalonDetailed(obj)));
                       },
                     ),
                   ),

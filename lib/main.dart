@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ovio_user/splashScreen.dart';
 import 'customColors.dart';
 import 'slider.dart';
 
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: customTheme,
       title: 'Ovio Admin',
-      home: IntroSlider(),
+      home: SplashScreen(),
     );
   }
 }

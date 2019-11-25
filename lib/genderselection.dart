@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'homepage.dart';
+import 'login_page.dart';
 
 class GenderSelection extends StatefulWidget {
   GenderSelection({Key key}) : super(key: key);
@@ -28,7 +27,7 @@ class _GenderSelectionState extends State<GenderSelection> {
                     Navigator.pushReplacement(
                         context,
                         new MaterialPageRoute(
-                            builder: (context) => new Homepage()));
+                            builder: (context) => new LoginPage()));
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.width * 0.25,
@@ -46,7 +45,7 @@ class _GenderSelectionState extends State<GenderSelection> {
                     Navigator.pushReplacement(
                         context,
                         new MaterialPageRoute(
-                            builder: (context) => new Homepage()));
+                            builder: (context) => new LoginPage()));
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.width * 0.25,
