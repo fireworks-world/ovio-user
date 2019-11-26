@@ -24,7 +24,7 @@ class _GenderSelectionState extends State<GenderSelection> {
               children: <Widget>[
                 InkWell(
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         new MaterialPageRoute(
                             builder: (context) => new LoginPage()));
@@ -42,7 +42,7 @@ class _GenderSelectionState extends State<GenderSelection> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         new MaterialPageRoute(
                             builder: (context) => new LoginPage()));
