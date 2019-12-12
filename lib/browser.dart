@@ -1,8 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:ovio_user/salondetailed.dart';
-
+import 'package:http/http.dart' as http;
 import 'main.dart';
+import 'dart:convert';
+
+import 'models/salonModel.dart';
 
 class Browser extends StatefulWidget {
   @override
@@ -27,7 +32,132 @@ List<object> liss = [
   new object("9", 4.9, "Salon9", 5000),
 ];
 
+List<SalonModel> lisss = [];
+
 class _BrowserState extends State<Browser> {
+  List convert_time(String str) {
+    int hour, minute, sec;
+    String temp = '';
+    int count = 1;
+    for (int i = 0; i < str.length; i++) {
+      if (str[i] == ':' || i == str.length - 1) {
+        switch (count) {
+          case 1:
+            hour = int.parse(temp);
+            break;
+          case 2:
+            minute = int.parse(temp);
+            break;
+          case 3:
+            sec = int.parse(temp + str[i]);
+            break;
+        }
+        count++;
+        temp = '';
+      } else {
+        temp += str[i];
+      }
+      List lst = [hour, minute, sec];
+
+      return lst;
+    }
+  }
+
+  Future<List<SalonModel>> fetchSalons() async {
+    final response = await http.get(
+        Uri.parse('http://ignitedbrains.com/ovio/showSalon.php'),
+        headers: {'accept': 'application/json'});
+    if (response.statusCode == 200) {
+      List<SalonModel> lisMe = [];
+      List data = json.decode(response.body);
+      debugPrint('Future LEN :: ' + data.length.toString());
+      for (int i = 0; i < data.length; i++) {
+        // var salon1=data[i]["salonName"];
+        print('For Loop ::: ' + i.toString());
+        print('Longitude ::: ' + data[i]['location_longitude'].toString());
+        print('Salon Name ::: ' + data[i]['salonName']);
+        var working_hours = data[i]["working_hours"];
+        // print("length"+ data.length.toString());
+        List time = convert_time(working_hours.toString());
+        print('After time ');
+        SalonModel obj = new SalonModel(
+          data[i]['salon_id'],
+          data[i]['category'],
+          data[i]['salonName'],
+          data[i]['admin'],
+          double.parse(data[i]['location_longitude'].toString()),
+          double.parse(data[i]['location_latitude'].toString()),
+          int.parse(data[i]['phone_no'].toString()),
+          int.parse(data[i]['worker_details'].toString()),
+          int.parse(data[i]['no_of_seat'].toString()),
+          data[i]['amenties'],
+          data[i]['type_served'],
+          data[i]['services'],
+          data[i]['package'],
+          int.parse(data[i]['working_days'].toString()),
+          TimeOfDay(hour: time[0], minute: time[1]),
+          int.parse(data[i]['reviews'].toString()),
+          data[i]['bank_details'],
+          int.parse(data[i]['status'].toString()),
+          data[i]['date'],
+        );
+
+        print('After OBJ ');
+
+        lisMe.add(obj);
+      }
+      print('LisMe Len ::: ' + lisMe.length.toString());
+      return lisMe;
+    }
+    return lisss;
+  }
+
+  getData() async {
+    final response = await http.get(
+        Uri.parse('http://ignitedbrains.com/ovio/showSalon.php'),
+        headers: {'accept': 'application/json'});
+    if (response.statusCode == 200) {
+      List data = json.decode(response.body);
+      debugPrint('LEN :: ' + data.length.toString());
+      for (int i = 0; i < data.length; i++) {
+        // var salon1=data[i]["salonName"];
+        var working_hours = data[i]["working_hours"];
+        // print("length"+ data.length.toString());
+        List time = convert_time(working_hours.toString());
+        SalonModel obj = new SalonModel(
+          data[i]['salon_id'],
+          data[i]['category'],
+          data[i]['salonName'],
+          data[i]['admin'],
+          double.parse(data[i]['location_longitude'].toString()),
+          double.parse(data[i]['location_latitude'].toString()),
+          int.parse(data[i]['phone_no'].toString()),
+          int.parse(data[i]['worker_details'].toString()),
+          int.parse(data[i]['no_of_seat'].toString()),
+          data[i]['amenties'],
+          data[i]['type_served'],
+          data[i]['services'],
+          data[i]['package'],
+          int.parse(data[i]['working_days'].toString()),
+          TimeOfDay(hour: time[i], minute: time[1]),
+          int.parse(data[i]['reviews'].toString()),
+          data[i]['bank_details'],
+          int.parse(data[i]['status'].toString()),
+          data[i]['date'],
+        );
+
+        lisss.add(obj);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,10 +211,40 @@ class _BrowserState extends State<Browser> {
                     itemBuilder: (BuildContext context, int i) =>
                         TopItem(context)),
               ),
+              SingleChildScrollView(
+                child: FutureBuilder<List<SalonModel>>(
+                  future: fetchSalons(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        return Container(
+                          height: snapshot.data.length *
+                              MediaQuery.of(context).size.width *
+                              .95 *
+                              2 /
+                              3,
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListItem(
+                                  context, snapshot.data[index].salonname);
+                              // return SampleView(snapshot.data[index].studentId, snapshot.data[index].name, snapshot.data[index].section, snapshot.data[index].deptt,snapshot.data[index].dp);
+                            },
+                          ),
+                        );
+                      } else if (snapshot.hasError)
+                        return Text('No Data ' + snapshot.error.toString());
+                    } else
+                      return Text('Loading...');
+                  },
+                ),
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: liss.map((f) => ListItem(context, f)).toList(),
+                children:
+                    lisss.map((f) => ListItem(context, f.salonname)).toList(),
               ),
             ],
           ),
@@ -108,18 +268,15 @@ class _BottomListState extends State<BottomList> {
 
 class ListItem extends StatelessWidget {
   String name;
-  String eta;
-  double rating;
-  object obj;
+  String eta = "10";
+  double rating = 4.0;
   BuildContext context;
-  ListItem(this.context, this.obj);
+  ListItem(this.context, this.name);
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.width * .95 * 2 / 3;
     double width = MediaQuery.of(context).size.width * .95;
-    name = obj.name;
-    eta = obj.eta;
-    rating = obj.rating;
+    debugPrint('SalonName : ' + name);
     return Container(
       margin: EdgeInsets.all(8.0),
       width: width,
@@ -182,10 +339,10 @@ class ListItem extends StatelessWidget {
                         style: TextStyle(color: Colors.yellow),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                                builder: (context) => new SalonDetailed(obj)));
+                        // Navigator.push(
+                        //     context,
+                        //     new MaterialPageRoute(
+                        //         builder: (context) => new SalonDetailed(obj)));
                       },
                     ),
                   ),

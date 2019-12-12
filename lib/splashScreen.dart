@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ovio_user/slider.dart';
-import 'GenderSelection.dart';
-import 'customColors.dart';
 import 'main.dart';
 
 class SplashScreen extends StatefulWidget {
