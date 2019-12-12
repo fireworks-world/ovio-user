@@ -107,6 +107,7 @@ class _BrowserState extends State<Browser> {
         lisMe.add(obj);
       }
       print('LisMe Len ::: ' + lisMe.length.toString());
+      lisss = lisMe;
       return lisMe;
     }
     return lisss;
@@ -199,55 +200,47 @@ class _BrowserState extends State<Browser> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: MediaQuery.of(context).size.width / 5,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    physics: BouncingScrollPhysics(),
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int i) =>
-                        TopItem(context)),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 5,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int i) =>
+                      TopItem(context)),
+            ),
+            Expanded(
+              child: FutureBuilder<List<SalonModel>>(
+                future: fetchSalons(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListItem(
+                              context, snapshot.data[index].salonname);
+                          // return SampleView(snapshot.data[index].studentId, snapshot.data[index].name, snapshot.data[index].section, snapshot.data[index].deptt,snapshot.data[index].dp);
+                        },
+                      );
+                    } else if (snapshot.hasError)
+                      return Text('No Data ' + snapshot.error.toString());
+                  } else
+                    return Text('Loading...');
+                },
               ),
-              SingleChildScrollView(
-                child: FutureBuilder<List<SalonModel>>(
-                  future: fetchSalons(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        return Container(
-                          height: snapshot.data.length *
-                              MediaQuery.of(context).size.width *
-                              .95 *
-                              2 /
-                              3,
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListItem(
-                                  context, snapshot.data[index].salonname);
-                              // return SampleView(snapshot.data[index].studentId, snapshot.data[index].name, snapshot.data[index].section, snapshot.data[index].deptt,snapshot.data[index].dp);
-                            },
-                          ),
-                        );
-                      } else if (snapshot.hasError)
-                        return Text('No Data ' + snapshot.error.toString());
-                    } else
-                      return Text('Loading...');
-                  },
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children:
-                    lisss.map((f) => ListItem(context, f.salonname)).toList(),
-              ),
-            ],
-          ),
+            )
+            /*
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children:
+                  lisss.map((f) => ListItem(context, f.salonname)).toList(),
+            ),*/
+          ],
         ),
       ),
     );
