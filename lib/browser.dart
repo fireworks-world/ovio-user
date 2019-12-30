@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:ovio_user/salondetailed.dart';
 import 'package:http/http.dart' as http;
+import 'package:skeleton_text/skeleton_text.dart';
 import 'main.dart';
 import 'dart:convert';
 
@@ -154,7 +155,6 @@ class _BrowserState extends State<Browser> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
   }
@@ -228,18 +228,18 @@ class _BrowserState extends State<Browser> {
                       );
                     } else if (snapshot.hasError)
                       return Text('No Data ' + snapshot.error.toString());
-                  } else
-                    return Text('Loading...');
+                  }
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: 5,
+                    itemBuilder: (BuildContext context, int index) {
+                      return SkeletonWidget();
+                      // return SampleView(snapshot.data[index].studentId, snapshot.data[index].name, snapshot.data[index].section, snapshot.data[index].deptt,snapshot.data[index].dp);
+                    },
+                  );
                 },
               ),
             )
-            /*
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:
-                  lisss.map((f) => ListItem(context, f.salonname)).toList(),
-            ),*/
           ],
         ),
       ),
@@ -364,6 +364,89 @@ class TopItem extends StatelessWidget {
           // borderRadius: BorderRadius.all(Radius.circular(8.0)),
           image: DecorationImage(
               image: AssetImage('lib/images/bd.jpeg'), fit: BoxFit.cover)),
+    );
+  }
+}
+
+class SkeletonWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.width * .95 * 2 / 3;
+    double width = MediaQuery.of(context).size.width * .95;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SkeletonAnimation(
+        child: Container(
+            height: height,
+            width: width,
+            decoration: BoxDecoration(color: Colors.grey),
+            child: Column(
+              children: <Widget>[
+                SkeletonAnimation(
+                  child: Container(
+                    height: height * .7,
+                    width: width,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height * .25,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              SkeletonAnimation(
+                                child: Container(
+                                  width: width * .4,
+                                  height: height * .1,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                  ),
+                                ),
+                              ),
+                              SkeletonAnimation(
+                                child: Container(
+                                  width: width * .4,
+                                  height: height * .1,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10.0),
+                          child: SkeletonAnimation(
+                            child: Container(
+                              width: width * .4,
+                              height: height * .2,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )),
+      ),
     );
   }
 }
