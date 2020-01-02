@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
+import 'package:ovio_user/auth/auth_screen.dart';
 import 'package:ovio_user/genderselection.dart';
 import 'package:ovio_user/customColors.dart';
+import 'auth/auth_bloc_provider.dart';
 import 'citySelection.dart';
 import 'main.dart';
 
@@ -124,7 +126,7 @@ class _IntroSliderState extends State<IntroSlider> {
           title: Text(
             'Login',
           ),
-          mainImage: dummyContainer),
+          mainImage: AuthBlocProvider(child: AuthScreen())),
     ];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -164,42 +166,43 @@ class _LoginSlideOTPState extends State<LoginSlideOTP> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        SizedBox(height: height * .2),
-        TextFormField(
-          keyboardType: TextInputType.number,
-          autofocus: false,
-          controller: smsCodeEditor,
-          cursorColor: Colors.white,
-          decoration: InputDecoration(
-            hintText: 'SMS Code',
-            contentPadding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.white, width: 2.0),
-              borderRadius: BorderRadius.circular(25.0),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(32.0),
-            ),
-          ),
-        ),
-        SizedBox(height: 24.0),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: height * 0.0389),
-          child: RaisedButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
-            onPressed: () {},
-            padding: EdgeInsets.all(12),
-            color: customTheme.primaryColor,
-            child: Text('Verify', style: customTheme.textTheme.button),
-          ),
-        )
-      ],
-    );
+    // return Column(
+    //   mainAxisAlignment: MainAxisAlignment.end,
+    //   children: <Widget>[
+    //     SizedBox(height: height * .2),
+    //     TextFormField(
+    //       keyboardType: TextInputType.number,
+    //       autofocus: false,
+    //       controller: smsCodeEditor,
+    //       cursorColor: Colors.white,
+    //       decoration: InputDecoration(
+    //         hintText: 'SMS Code',
+    //         contentPadding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+    //         focusedBorder: OutlineInputBorder(
+    //           borderSide: const BorderSide(color: Colors.white, width: 2.0),
+    //           borderRadius: BorderRadius.circular(25.0),
+    //         ),
+    //         border: OutlineInputBorder(
+    //           borderRadius: BorderRadius.circular(32.0),
+    //         ),
+    //       ),
+    //     ),
+    //     SizedBox(height: 24.0),
+    //     Padding(
+    //       padding: EdgeInsets.symmetric(vertical: height * 0.0389),
+    //       child: RaisedButton(
+    //         shape: RoundedRectangleBorder(
+    //           borderRadius: BorderRadius.circular(24),
+    //         ),
+    //         onPressed: () {},
+    //         padding: EdgeInsets.all(12),
+    //         color: customTheme.primaryColor,
+    //         child: Text('Verify', style: customTheme.textTheme.button),
+    //       ),
+    //     )
+    //   ],
+    // );
+    return AuthScreen();
   }
 }
 

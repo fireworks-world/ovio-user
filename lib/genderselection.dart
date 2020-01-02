@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'citySelection.dart';
 import 'login_page.dart';
 
 class GenderSelection extends StatefulWidget {
@@ -45,7 +46,7 @@ class _GenderSelectionState extends State<GenderSelection> {
                     Navigator.push(
                         context,
                         new MaterialPageRoute(
-                            builder: (context) => new LoginPage()));
+                            builder: (context) => new CitySelection()));
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.width * 0.25,
