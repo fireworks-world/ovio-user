@@ -82,6 +82,43 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:511745730772:android:647f26f661c52003ddf341",
+        "android_client_info": {
+          "package_name": "com.example.passwordless_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "511745730772-6c7g43dq7t0vlt3u6fkst1gb1ihqnne6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.passwordless_demo",
+            "certificate_hash": "fbbaa94cbdc63daa113349db3dcefe7dd71bdbf1"
+          }
+        },
+        {
+          "client_id": "511745730772-06fhb215cl0c64qe76ejbvun8mmjar8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-uDWzEP-AKIPydMlG9PsOgWLv1bdgUEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "511745730772-06fhb215cl0c64qe76ejbvun8mmjar8v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:511745730772:android:951a213d16496829ddf341",
         "android_client_info": {
           "package_name": "com.example.phone_auth_firebase"

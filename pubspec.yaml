@@ -38,6 +38,7 @@ dependencies:
   pin_view: ^1.0.1
   cloud_firestore: ^0.13.0+1
   loading: ^1.0.2
+  firebase_analytics: ^5.0.9
 
 dev_dependencies:
   flutter_test:
