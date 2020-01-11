@@ -222,7 +222,9 @@ class _BrowserState extends State<Browser> {
                         itemCount: snapshot.data.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListItem(
-                              context, snapshot.data[index].salonname);
+                              context,
+                              snapshot.data[index].salonname,
+                              snapshot.data[index]);
                           // return SampleView(snapshot.data[index].studentId, snapshot.data[index].name, snapshot.data[index].section, snapshot.data[index].deptt,snapshot.data[index].dp);
                         },
                       );
@@ -260,11 +262,12 @@ class _BottomListState extends State<BottomList> {
 }
 
 class ListItem extends StatelessWidget {
+  SalonModel obj;
   String name;
   String eta = "10";
   double rating = 4.0;
   BuildContext context;
-  ListItem(this.context, this.name);
+  ListItem(this.context, this.name, this.obj);
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.width * .95 * 2 / 3;
@@ -332,10 +335,11 @@ class ListItem extends StatelessWidget {
                         style: TextStyle(color: Colors.yellow),
                       ),
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     new MaterialPageRoute(
-                        //         builder: (context) => new SalonDetailed(obj)));
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) =>
+                                    new SalonDetailedNewUI(obj)));
                       },
                     ),
                   ),

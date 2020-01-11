@@ -47,7 +47,7 @@ class AuthBloc with AuthValidators {
       PhoneVerificationCompleted verificationCompleted,
       PhoneVerificationFailed verificationFailed) {
     // For the full phone number we need to concat the dialcode and the number entered by the user
-    String phoneNumber = '+91' + _phone.value;
+    String phoneNumber = '+91' + _phone.value.toString();
     return _repository.verifyPhoneNumber(
         phoneNumber,
         codeAutoRetrievalTimeout,

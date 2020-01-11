@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:ovio_user/browser.dart';
+import 'package:ovio_user/finalBooking.dart';
+import 'package:ovio_user/models/salonModel.dart';
 
 import 'customColors.dart';
 import 'main.dart';
@@ -176,6 +179,149 @@ class _SalonDetailedState extends State<SalonDetailed> {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class SalonDetailedNewUI extends StatefulWidget {
+  SalonModel obj;
+  SalonDetailedNewUI(this.obj);
+  @override
+  _SalonDetailedNewUIState createState() => _SalonDetailedNewUIState(obj);
+}
+
+class _SalonDetailedNewUIState extends State<SalonDetailedNewUI> {
+  SalonModel obj;
+  _SalonDetailedNewUIState(this.obj);
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: height * .5,
+              width: width,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          'http://salonvivo.com/wp-content/uploads/2014/07/salon.jpg?x51305'),
+                      fit: BoxFit.cover)),
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    children: <Widget>[
+                      // Text(
+                      //   ' ',
+                      //   style: TextStyle(
+                      //       fontSize: 20,
+                      //       fontFamily: 'WorkSans',
+                      //       fontWeight: FontWeight.bold),
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          obj.salonname,
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'WorkSans',
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          'Near Kharar Bus Stand',
+                          style: TextStyle(
+                              fontFamily: 'WorkSans',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Container(
+                      color: customColor1,
+                      margin: EdgeInsets.only(
+                          left: 8.0, bottom: 8.0, top: 8.0, right: 8.0),
+                      alignment: Alignment.center,
+                      height: height * .05,
+                      width: width * .27,
+                      child: Center(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              '3.3',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              ' | 95',
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(
+                'Amenities',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'WorkSans',
+                ),
+              ),
+            ),
+            Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Expanded(flex: 1, child: Center(child: Text('AC'))),
+                    Expanded(flex: 1, child: Center(child: Text('Free WiFi')))
+                  ],
+                )
+              ],
+            )
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Column(
+            //     children: <Widget>[],
+            //   ),
+            // ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Add your onPressed code here!
+          Navigator.push(context,
+              new MaterialPageRoute(builder: (context) => new FinalBooking()));
+        },
+        label: Text('Book for INR400'),
+        icon: Icon(Icons.book),
+        backgroundColor: customColor1,
       ),
     );
   }
