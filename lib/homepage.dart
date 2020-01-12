@@ -63,7 +63,8 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
       ),
-      body: _children[_currentIndex],
+      body: WillPopScope(
+          onWillPop: () async => false, child: _children[_currentIndex]),
     );
   }
 }

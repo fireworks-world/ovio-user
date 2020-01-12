@@ -87,10 +87,12 @@ class _SplashScreenState extends State<SplashScreen> {
                       color: customTheme.primaryColor,
                       child: Text("Skip"),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                                builder: (context) => new IntroSlider()));
+                        Navigator.of(context)
+                            .pushReplacementNamed('/introSlider');
+                        // Navigator.push(
+                        //     context,
+                        //     new MaterialPageRoute(
+                        //         builder: (context) => new IntroSlider()));
                       },
                     ),
                   ],

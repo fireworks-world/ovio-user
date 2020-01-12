@@ -8,6 +8,7 @@ import 'package:ovio_user/genderselection.dart';
 import 'package:ovio_user/customColors.dart';
 import 'auth/auth_bloc_provider.dart';
 import 'citySelection.dart';
+import 'homepage.dart';
 import 'main.dart';
 
 class IntroSlider extends StatefulWidget {
@@ -134,16 +135,23 @@ class _IntroSliderState extends State<IntroSlider> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ), //ThemeData
+      routes: <String, WidgetBuilder>{
+        '/introSlider': (BuildContext context) => new IntroSlider(),
+        '/genderSelection': (BuildContext context) => new GenderSelection(),
+        '/citySelection': (BuildContext context) => new CitySelection(),
+        '/home': (BuildContext c) => new Homepage(),
+      },
       home: Builder(
         builder: (context) => IntroViewsFlutter(
           pages,
           onTapDoneButton: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => GenderSelection(),
-              ), //MaterialPageRoute
-            );
+            Navigator.of(context).pushReplacementNamed('/genderSelection');
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => GenderSelection(),
+            //   ), //MaterialPageRoute
+            // );
           },
           pageButtonTextStyles: TextStyle(
             color: Colors.white,

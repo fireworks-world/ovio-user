@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ovio_user/genderselection.dart';
+import 'package:ovio_user/homepage.dart';
 import 'package:ovio_user/splashScreen.dart';
+import 'citySelection.dart';
 import 'customColors.dart';
 import 'slider.dart';
 
@@ -52,6 +55,12 @@ class MyApp extends StatelessWidget {
       theme: customTheme,
       title: 'Ovio Admin',
       home: SplashScreen(),
+      routes: <String, WidgetBuilder>{
+        '/introSlider': (BuildContext context) => new IntroSlider(),
+        '/genderSelection': (BuildContext context) => new GenderSelection(),
+        '/citySelection': (BuildContext context) => new CitySelection(),
+        '/home': (BuildContext c) => new Homepage(),
+      },
     );
   }
 }

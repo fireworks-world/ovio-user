@@ -63,11 +63,13 @@ class _ExampleFormState extends State<CitySelection> {
                                   onPressed: () async {
                                     if (_formKey.currentState.validate()) {
                                       _formKey.currentState.save();
-                                      Navigator.push(
-                                          context,
-                                          new MaterialPageRoute(
-                                              builder: (context) =>
-                                                  new Homepage()));
+                                      Navigator.of(context)
+                                          .pushReplacementNamed('/home');
+                                      // Navigator.push(
+                                      //     context,
+                                      //     new MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             new Homepage()));
                                       // showDialog<String>(
                                       //     context: context,
                                       //     builder:

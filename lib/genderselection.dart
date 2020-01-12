@@ -25,10 +25,12 @@ class _GenderSelectionState extends State<GenderSelection> {
               children: <Widget>[
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => new LoginPage()));
+                    Navigator.of(context)
+                        .pushReplacementNamed('/citySelection');
+                    // Navigator.push(
+                    //     context,
+                    //     new MaterialPageRoute(
+                    //         builder: (context) => new CitySelection()));
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.width * 0.25,
@@ -43,10 +45,8 @@ class _GenderSelectionState extends State<GenderSelection> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => new CitySelection()));
+                    Navigator.of(context)
+                        .pushReplacementNamed('/citySelection');
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.width * 0.25,
